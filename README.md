@@ -33,20 +33,20 @@ Part model -> Isaac Sim synthetic data (randomised) -> labels checked -> YOLO da
 
 ### Real photos (the test that matters)
 
-39 webcam photos of a real 5-6 cm patterned puzzle cube on a white table, bright and dim lighting. The detector never saw a real image during training.
+29 unique webcam photos of a real 5-6 cm patterned puzzle cube on a white table, bright and dim lighting. The detector never saw a real image during training.
 
-| Run | Whole cube detected | Missed | False boxes |
+| Run | Whole cube detected | Wrong boxes only (tiles, shadows, strap) | Nothing detected |
 | --- | --- | --- | --- |
-| v1 (conf 0.25) | 0 / 39 | 39 | many (single tiles, shadows, a black strap) |
-| v2 (conf 0.25) | **10 / 39** | 29 | **0** |
-| v2 (conf 0.10) | 12 / 39 | 27 | 3 |
+| v1 (conf 0.25) | 0 / 29 | 8 / 29 | 21 / 29 |
+| v2 (conf 0.25) | **8 / 29** | **0 / 29** | 21 / 29 |
 
 **What this shows**
 
-- Near-perfect synthetic scores say little about real performance: v1 scored 0.995 mAP50 on synthetic images and 0 / 39 on real ones.
+- Near-perfect synthetic scores say little about real performance: v1 scored 0.995 mAP50 on synthetic images and found the whole cube in 0 of 29 real photos.
 - v1 learned "small plain grey square", so it boxed single tiles of the real cube and dark objects in the background.
-- v2 adds colour randomisation, unlabelled distractor objects (including black ones), random lighting and random camera distance and angle. False boxes dropped to zero and the whole cube is found in 26% of real photos.
-- Lowering the confidence threshold adds only 2 hits but 3 false boxes, so the remaining misses are not a threshold problem. The likely cause: the real cube has patterned 3x3 tile faces with letters, while the training cube only had one plain colour per frame. That is the target of v3.
+- v2 adds colour randomisation, unlabelled distractor objects (including black ones), random lighting and random camera distance and angle. Wrong boxes dropped to zero and the whole cube is found in 28% of real photos.
+- Lowering the confidence threshold to 0.10 added only a few hits and brought back false boxes, so the remaining misses are not a threshold problem. The likely cause: the real cube has patterned 3x3 tile faces with letters, while the training cube only had one plain colour per frame. That is the target of v3.
+- Test-set hygiene: the first count used 39 photos, which turned out to include 10 duplicates. All numbers above are on the 29 unique photos.
 
 ## Tools
 
@@ -94,7 +94,7 @@ yolo detect predict model=runs\v2\weights\best.pt source=data\real_test conf=0.2
 
 ## Next steps
 
-- [ ] v3: image textures (tiles, letters, patterns) on the part and darker scenes; retest on the same 39 photos
+- [ ] v3: image textures (tiles, letters, patterns) on the part and darker scenes; retest on the same 29 photos
 - [ ] Measure how many labelled real images close the remaining gap
 - [ ] Load real parts from CAD files instead of a cube
 - [ ] ROS 2 perception node and robot pick in simulation
