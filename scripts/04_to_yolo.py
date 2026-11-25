@@ -9,8 +9,8 @@ import numpy as np
 from PIL import Image
 
 # ---- Settings ----
-SRC = r"C:\cad2robot\data\v1"          # Isaac Sim output
-DST = r"C:\cad2robot\data\yolo_v1"     # YOLO dataset
+SRC = r"C:\cad2robot\data\v2"          # Isaac Sim output
+DST = r"C:\cad2robot\data\yolo_v2"     # YOLO dataset
 CLASSES = ["part"]                     # class 0 = "part"
 VAL_SHARE = 0.1                        # 10% for validation
 random.seed(0)                         # same split every run

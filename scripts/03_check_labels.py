@@ -6,7 +6,7 @@ import os
 import numpy as np
 from PIL import Image, ImageDraw
 
-DATA = r"C:\cad2robot\data\v1"
+DATA = r"C:\cad2robot\data\v2"
 OUT = os.path.join(DATA, "check")
 os.makedirs(OUT, exist_ok=True)
 
