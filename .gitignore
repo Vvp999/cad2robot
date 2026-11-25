@@ -4,4 +4,5 @@ runs/*
 !runs/v1/
 runs/v1/weights/last.pt
 __pycache__/
-*.npyyolo11n.pt
+*.npy
+yolo11n.pt
