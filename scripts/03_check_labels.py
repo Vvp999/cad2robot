@@ -6,11 +6,11 @@ import os
 import numpy as np
 from PIL import Image, ImageDraw
 
-DATA = r"C:\cad2robot\data\v2"
+DATA = r"C:\cad2robot\data\v3"
 OUT = os.path.join(DATA, "check")
 os.makedirs(OUT, exist_ok=True)
 
-for img_path in sorted(glob.glob(os.path.join(DATA, "rgb_*.png")))[:10]:
+for img_path in sorted(glob.glob(os.path.join(DATA, "rgb_*.png"))):
     idx = img_path[-8:-4]                       # "0000", "0001", ...
     boxes = np.load(os.path.join(DATA, f"bounding_box_2d_tight_{idx}.npy"))
     with open(os.path.join(DATA, f"bounding_box_2d_tight_labels_{idx}.json")) as f:
