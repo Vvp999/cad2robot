@@ -4,9 +4,11 @@ runs/*
 !runs/v1/
 !runs/v2/
 !runs/v3/
+!runs/v4/
 runs/v1/weights/last.pt
 runs/v2/weights/last.pt
 runs/v3/weights/last.pt
+runs/v4/weights/last.pt
 __pycache__/
 *.npy
 yolo11n.pt
